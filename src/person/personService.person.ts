@@ -24,4 +24,14 @@ export class PersonService {
        Object.assign(data1,person)
       await this.personRepository.save(person)
     }
+
+    async DeleteData(id:number){
+      const data1 = await this.personRepository.findOneBy({id});
+      if(!data1) {
+        throw new Error("Person not found");
+      }
+    
+      await this.personRepository.delete(id)
+    }
+
 }
