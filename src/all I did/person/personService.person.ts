@@ -1,8 +1,8 @@
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
-import { InsertDataDto } from "src/Dto/InsertDataDto.Dto";
-import { UpdatePersonDto } from "src/Dto/UpdatePersonDto";
-import { Person } from "src/entities/user.entity";
+import { InsertDataDto } from "src/all I did/Dto/InsertDataDto.Dto";
+import { UpdatePersonDto } from "src/all I did/Dto/UpdatePersonDto";
+import { Person } from "src/all I did/entities/user.entity";
 import { Repository } from "typeorm";
 
 
