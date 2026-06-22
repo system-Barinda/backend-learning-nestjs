@@ -1,6 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { InsertDataDto } from "src/Dto/InsertDataDto.Dto";
+import { UpdatePersonDto } from "src/Dto/UpdatePersonDto";
 import { Person } from "src/entities/user.entity";
 import { Repository } from "typeorm";
 
@@ -12,5 +13,15 @@ export class PersonService {
     async InsertData(person:InsertDataDto){
       const per = await this.personRepository.create(person);
       return this.personRepository.save(per);
+    }
+
+    async updateData(id:number,person:UpdatePersonDto){
+      const data1 = await this.personRepository.findOneBy({id});
+      if(!data1) {
+        throw new Error("Person not found");
+      }
+    
+       Object.assign(data1,person)
+      await this.personRepository.save(person)
     }
 }
