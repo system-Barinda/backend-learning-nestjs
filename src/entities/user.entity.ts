@@ -14,7 +14,7 @@ export class User {
   description!:string;
 
   @Column({default:0})
-  price!:number
+  price!:number;
 
 
 
@@ -24,13 +24,13 @@ export class User {
 @Entity()
 export class Person {
   @PrimaryColumn()
-  id!:number
+  id!:number;
 
 
   @Column()
-  name!:string
+  name!:string;
 
-  @Column()
-  Location!:string
+ @Column()
+location!: string;
 }
 

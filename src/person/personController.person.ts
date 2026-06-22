@@ -7,7 +7,7 @@ import { InsertDataDto } from "src/Dto/InsertDataDto.Dto";
 export class PersonController {
     constructor(private readonly personService:PersonService){}
 
-    @Post("add")
+    @Post("/add")
     createData(@Body() person:InsertDataDto){
     
         return this.personService.InsertData(person);
