@@ -2,7 +2,7 @@ import { Injectable, ConflictException, NotFoundException } from "@nestjs/common
 import { InjectRepository } from "@nestjs/typeorm";
 import { Student } from "./Entities/Student.Entity";
 import { Repository } from "typeorm";
-import { StudentDto } from "../StudentDto/student.StudentDto"; // Adjust path if needed
+import { StudentDto } from "./StudentDto/student.StudentDto";
 
 @Injectable()
 export class StudentService {
@@ -11,6 +11,10 @@ export class StudentService {
  
   async createStudent(studentDto: StudentDto | StudentDto[]): Promise<Student | Student[]> {
     try {
+      if (Array.isArray(studentDto)) {
+        const newStudents = this.studentrepo.create(studentDto);
+        return await this.studentrepo.save(newStudents);
+      }
       const newStudent = this.studentrepo.create(studentDto);
       return await this.studentrepo.save(newStudent);
     } 
