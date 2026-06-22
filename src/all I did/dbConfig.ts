@@ -1,5 +1,5 @@
 import { DataSourceOptions } from "typeorm";
-import { User,Person } from "./all I did/entities/user.entity";
+import { User, Person } from "./entities/user.entity";
 
 export const pgConfig: DataSourceOptions = {
   type: "postgres",

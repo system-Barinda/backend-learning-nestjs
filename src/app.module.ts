@@ -1,13 +1,12 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { pgConfig } from './dbConfig';
-import { UserModule } from './all I did/Users/UserModule.Users';
-import { PersonModule } from './all I did/person/personModule.person';
+import { PgConfig } from './students/PgConfig';
+import { StudentModule } from './students/studentModule.student';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot(pgConfig),
-    UserModule,PersonModule
+    TypeOrmModule.forRoot(PgConfig),
+    StudentModule
   ],
 })
 export class AppModule {}
