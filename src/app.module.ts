@@ -1,12 +1,9 @@
 import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { PgConfig } from './students/PgConfig';
-import { StudentModule } from './students/studentModule.student';
+import { UserService } from './Interceptor/userService.interceptor';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot(PgConfig),
-    StudentModule
+    UserService
   ],
 })
 export class AppModule {}
