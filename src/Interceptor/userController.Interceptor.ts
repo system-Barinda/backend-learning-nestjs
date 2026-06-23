@@ -11,4 +11,8 @@ export class UserController {
     getUser(){
         return this.userService.findAll();
     }
+    @Post()
+    Create(@Body() body){
+    return this.userService.createUser(body);
+    }
 }
