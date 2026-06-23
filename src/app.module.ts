@@ -6,4 +6,4 @@ import { UserController } from './Interceptor/userController.Interceptor';
   controllers: [UserController],
   providers: [UserService],
 })
-export class UserModule {}
+export class AppModule {}
