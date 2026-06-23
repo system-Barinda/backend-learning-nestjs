@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
 import { UserService } from './Interceptor/userService.interceptor';
+import { UserController } from './Interceptor/userController.Interceptor';
 
 @Module({
-  imports: [
-    UserService
-  ],
+  controllers: [UserController],
+  providers: [UserService],
 })
-export class AppModule {}
+export class UserModule {}
