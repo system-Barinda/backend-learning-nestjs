@@ -1,12 +1,11 @@
-import express  from 'express'
-import dotenv from 'dotenv'
-import userRouter from "./routers/UserRouter.js";
-const app = express()
+import express from 'express';
+import Router from './routers/UserRouter.js'; 
+
+const app = express();
 app.use(express.json());
 
-dotenv.config();
+app.use(Router); 
 
-app.use(Router);
-app.listen(3000,() => {
-console.log('localhost:https://localhost:3000/');
+app.listen(3000, () => {
+  console.log('Server running on port 3000');
 });
