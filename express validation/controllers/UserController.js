@@ -1,6 +1,10 @@
 import data from "../data.js";
-export const getAllData = async (req,res) => {
+import { query } from "express-validator";
+
+
+export const getAllData = async (query("filter"), req,res) => {
   try{
+    const { Alldata} = filter()
     const Alldata = await Promise.resolve(data);
     res.status(200).json({success:true,message:'data fetched successfully',data:Alldata});
   }
