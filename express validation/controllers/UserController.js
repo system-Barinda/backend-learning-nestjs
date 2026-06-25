@@ -6,7 +6,7 @@ import { date, success } from "zod";
 export const getAllData = async (req,res) => {
   try{
     const Alldata = await Promise.resolve(data);
-    res.status(200).json({success:true,data:Alldata});
+    res.status(200).json({success:true,message:'data fetched successfully',data:Alldata});
   }
   catch(err){
     res.status(500).json({
