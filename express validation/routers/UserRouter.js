@@ -1,8 +1,12 @@
-import {UserController} from "../controllers/UserController"
-const express = require('express')
-const Router = express.Router();
+import { UserController } from "../controllers/UserController.js"; 
+import express from 'express';
+
+const router = express.Router(); 
 
 
-Router.get('Data',UserController);
+const userController = new UserController();
 
-export default Router;
+
+router.get('/data', userController.getAllData);
+
+export default router;

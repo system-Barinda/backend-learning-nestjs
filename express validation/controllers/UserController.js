@@ -1,8 +1,4 @@
-import data from "..data.js";
-import { error } from "node:console";
-import { date, success } from "zod";
-
-
+import data from "../data.js";
 export const getAllData = async (req,res) => {
   try{
     const Alldata = await Promise.resolve(data);
