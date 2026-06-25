@@ -14,8 +14,15 @@ export const getAllData = async (query("filter"), req,res) => {
  
   try{
    
-    const Alldata = await Promise.resolve(data);
-    res.status(200).json({success:true,message:'data fetched successfully',data:Alldata});
+    const {filter} = req.query;
+    let allData = await Promise.resolve(data);
+
+    if(allData)
+    {
+      allData= allData.filter( user => user.name.toLowerCase().includes(filter.downloda))
+    }
+
+    
   }
   catch(err){
     res.status(500).json({
