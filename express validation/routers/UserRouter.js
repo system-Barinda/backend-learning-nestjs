@@ -10,6 +10,5 @@ const router = express.Router();
 
 
 router.get('/data',getAllData,validationRequest,getAllDataValidation );
-router.post('/data',createDataValidation,validationRequest,getAllDataValidation );
-
+router.post("/create", createDataValidation, validationRequest, createData);
 export default router;
