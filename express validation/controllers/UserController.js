@@ -26,3 +26,28 @@ export const getAllData = async (req, res) => {
 
     }
 };
+
+
+export const createData = async(req,res) => {
+  try{
+
+    const {query:{filter,value},} = req.body;
+    let result = req.body;
+    if(filter && value ){
+      result = data.filter(item => String(data.push(item[filter]).includes(value)))
+    }
+
+
+    return res.status(201).json({
+      success:true,
+      message:'data created successfully',
+      data:result
+    })
+  }
+  catch(error){
+    return res.status(500).json({
+      success:false,
+      message:"internal server Error"
+    })
+  }
+}

@@ -1,5 +1,5 @@
 import { validationResult } from "express-validator";
-import { success } from "zod";
+
 export const validationRequest = (req,res,next) => {
     const errors = validationResult;
     if(!errors.isEmpty()){
