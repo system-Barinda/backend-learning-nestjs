@@ -1,7 +1,6 @@
 import { body } from "express-validator";
 
 export const createDataValidation = [
-
   body("name")
     .trim()
     .notEmpty()
@@ -34,5 +33,4 @@ export const createDataValidation = [
     .withMessage("Website is required")
     .isURL()
     .withMessage("Please provide a valid website URL"),
-
 ];
