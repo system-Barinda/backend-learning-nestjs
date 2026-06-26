@@ -31,17 +31,13 @@ export const getAllData = async (req, res) => {
 export const createData = async(req,res) => {
   try{
 
-    const {query:{filter,value},} = req.body;
-    let result = req.body;
-    if(filter && value ){
-      result = data.filter(item => String(data.push(item[filter]).includes(value)))
-    }
-
+    const newUser = req.body;
+     data.push(newUser)
 
     return res.status(201).json({
       success:true,
       message:'data created successfully',
-      data:result
+      data:newUser
     })
   }
   catch(error){
