@@ -1,26 +1,14 @@
 import data from "../data.js";
-import { validationResult } from "express-validator";
+import { query } from "express-validator";
 
-export const getAllData = async (req, res) => { // 1. Cleaned up parameters
+export const getAllData = query("filter").isEmpty().isString(),async (req, res) => { 
 
-  const error = validationResult(req);
-  if (!error.isEmpty()) {
-    return res.status(400).json({
-      success: false, // Fixed spelling
-      error: error.array()
-    });
-  }
- 
   try {
-    const { filter } = req.query;
-    let allData = await Promise.resolve(data);
-
-
-    if (filter && allData) {
-      allData = allData.filter(user => 
-        user.name.toLowerCase().includes(filter.toLowerCase()) 
-      );
-    }
+       const { query :{filter,value}, } = req ;
+        if(filter && value){
+          return res.send(data.filter((user) => user[filter].includes(value)))
+        }
+        return res.send(user)
 
     // 4. Send the response back (Crucial step!)
     res.status(200).json({
