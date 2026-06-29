@@ -2,12 +2,13 @@ const fileService = require('../services/fileService');
 const {v4:uuidv4} = require('uuid')
 
 const itemController = {
-    async getAllItem(req,res){
+    async getAllItems(req,res){
       try{
-        const items = await fileService.readItem();
+       const items = await fileService.readItems();
         res.status(200).json(items)
       }
       catch(error){
+        console.error("The actual GET error is:", error);
         res.status(500).json({ error: 'Failed to retrieve items.' });
       }
     },
@@ -32,6 +33,7 @@ const itemController = {
 
       res.status(201).json(newItem); 
     } catch (error) {
+      console.error("The actual hidden error is:", error);
       res.status(500).json({ error: 'Failed to create item.' });
     }
   },
