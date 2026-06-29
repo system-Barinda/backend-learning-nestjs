@@ -62,4 +62,27 @@ const itemController = {
     }
   },
 
-}
+  async deleteItem(req, res) {
+    try {
+      const { id } = req.params;
+      const items = await fileService.readItems();
+      
+      const itemExists = items.some(item => item.id === id);
+      if (!itemExists) {
+        return res.status(404).json({ error: 'Item not found.' });
+      }
+
+      const filteredItems = items.filter(item => item.id !== id);
+      await fileService.writeItems(filteredItems);
+
+      res.status(200).json({ message: 'Item deleted successfully.' });
+    } catch (error) {
+      res.status(500).json({ error: 'Failed to delete item.' });
+    }
+  }
+
+
+};
+
+module.exports = itemController;
+
