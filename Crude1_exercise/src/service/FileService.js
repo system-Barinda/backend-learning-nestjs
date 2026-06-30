@@ -9,7 +9,7 @@ const FileService = {
     //let us get all data we have in file called the data.json{}
      async GetAllData(){
        try{
-        const data = await fs.readFile(FilePath,JSON.stringify([]),"utf8");
+        const data = await fs.readFile(FilePath,JSON,"utf8");
         return JSON.parse(data);
        }
        catch(err){

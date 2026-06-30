@@ -10,7 +10,8 @@ const DataController = {
             res.status(200).json(data);
         }
         catch(error){
-            throw new Error({statusCode:409,message:error})
+            console.error("caused by this error:",error)
+            throw error;
         }
     }
 
