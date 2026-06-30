@@ -28,6 +28,9 @@ const FileService = {
           await fs.writeFile(FilePath,JSON.stringify(item,null,2),"utf8");
 
          }
+         catch(error){
+            console.error(error)
+         }
      }
 };
 
