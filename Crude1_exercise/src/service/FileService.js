@@ -18,6 +18,16 @@ const FileService = {
         }
         throw new Error(err);
        }
+     },
+
+     //let us add data to the curruntly date we have
+
+     async WriteDataFile(item){
+         try{
+            
+          await fs.writeFile(FilePath,JSON.stringify(item,null,2),"utf8");
+
+         }
      }
 };
 
