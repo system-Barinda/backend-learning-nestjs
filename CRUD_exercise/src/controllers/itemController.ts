@@ -1,4 +1,4 @@
-const fileService = require("../services/fileService");
+import fileService from "../services/fileService";
 
 const itemController = {
   async getAllItems(req, res) {
