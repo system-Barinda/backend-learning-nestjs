@@ -1,15 +1,12 @@
+import itemController from "../controllers/itemController"; 
+import validate from "../middleware/validation";
+
+import { validateCreateItem, validateUpdateItem, validateItemId} from "../validators/itemValidator";
+
 const express = require("express");
 const router = express.Router();
 
-const itemController = require("../controllers/itemController");
 
-const validate = require("../middleware/validation");
-
-const {
-  validateCreateItem,
-  validateUpdateItem,
-  validateItemId,
-} = require("../validators/itemValidator");
 
 router.get("/", itemController.getAllItems);
 

@@ -1,6 +1,6 @@
 const { body, param } = require("express-validator");
 
-const validateCreateItem = [
+export const validateCreateItem = [
   body("name")
     .trim()
     .notEmpty()
@@ -14,7 +14,7 @@ const validateCreateItem = [
     .withMessage("Price must be a positive number."),
 ];
 
-const validateUpdateItem = [
+export const validateUpdateItem = [
   param("id")
     .notEmpty()
     .withMessage("Item ID is required."),
@@ -33,14 +33,8 @@ const validateUpdateItem = [
     .withMessage("Price must be a positive number."),
 ];
 
-const validateItemId = [
+export const validateItemId = [
   param("id")
     .notEmpty()
     .withMessage("Item ID is required."),
 ];
-
-module.exports = {
-  validateCreateItem,
-  validateUpdateItem,
-  validateItemId,
-};
