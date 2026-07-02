@@ -13,6 +13,12 @@ const {
 
 router.get("/", itemController.getAllItems);
 
+router.get(
+      "/:id", 
+      validateItemId, 
+      validate, itemController.getOneById)
+      ;
+
 router.post(
   "/",
   validateCreateItem,

@@ -1,7 +1,8 @@
+import { Request, Response } from "express";
 import fileService from "../services/fileService";
 
 const itemController = {
-  async getAllItems(req, res) {
+  async getAllItems(req: Request, res: Response) {
     try {
       const items = await fileService.readItems();
       res.status(200).json(items);
@@ -13,7 +14,30 @@ const itemController = {
     }
   },
 
-  async createItem(req, res) {
+  async getOneById(req: Request, res: Response) {
+    try {
+      const { id } = req.params;
+
+      const items = await fileService.readItems();
+
+      const item = items.find((item) => item.id === id);
+
+      if (!item) {
+        return res.status(404).json({
+          error: "Item not found.",
+        });
+      }
+
+      res.status(200).json(item);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({
+        error: "Failed to retrieve item.",
+      });
+    }
+  },
+
+  async createItem(req: Request, res: Response) {
     try {
       const { name, price } = req.body;
 
@@ -38,7 +62,7 @@ const itemController = {
     }
   },
 
-  async updateItem(req, res) {
+  async updateItem(req: Request, res: Response) {
     try {
       const { id } = req.params;
       const { name, price } = req.body;
@@ -72,7 +96,7 @@ const itemController = {
     }
   },
 
-  async deleteItem(req, res) {
+  async deleteItem(req: Request, res: Response) {
     try {
       const { id } = req.params;
 
@@ -106,4 +130,4 @@ const itemController = {
   },
 };
 
-module.exports = itemController;
+export default itemController;
