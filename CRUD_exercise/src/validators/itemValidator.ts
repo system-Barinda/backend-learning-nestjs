@@ -1,12 +1,14 @@
 const { body, param } = require("express-validator");
 
 export const validateCreateItem = [
-  body("name")
-    .trim()
-    .notEmpty()
-    .withMessage("Name is required.")
-    .isLength({ min: 3 })
-    .withMessage("Name must be at least 3 characters."),
+ body("name")
+  .isString()
+  .withMessage("Name must be a string.")
+  .trim()
+  .notEmpty()
+  .withMessage("Name is required.")
+  .isLength({ min: 3 })
+  .withMessage("Name must be at least 3 characters."),
 
   body("price")
     .optional()
