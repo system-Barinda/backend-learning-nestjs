@@ -1,33 +1,50 @@
-const fs = require('fs').promises;
-const path = require('path');
+import { promises as fs } from "fs";
+import path from "path";
+import { User } from "../models/User"; 
 
-const filePath = path.join(__dirname, '../../data.json');
+const filePath = path.join(__dirname, "../../data.json");
 
 const fileService = {
 
-    async readItems() {
+
+
+  async readItems(): Promise<User[]> {
     try {
-        const data = await fs.readFile(filePath, "utf8");
-        return JSON.parse(data);
-    } catch (error) {
-        if (error.code === "ENOENT") {
-            await fs.writeFile(filePath, JSON.stringify([]), "utf8");
-            return [];
-        }
+      const data = await fs.readFile(filePath, "utf8");
 
-        if (error instanceof SyntaxError) {
-            throw new Error("data.json contains invalid JSON.");
-        }
+      return JSON.parse(data) as User[];
+    } catch (error: unknown) {
+      if (
+        typeof error === "object" &&
+        error !== null &&
+        "code" in error &&
+        (error as NodeJS.ErrnoException).code === "ENOENT"
+      ) {
+        await fs.writeFile(filePath, JSON.stringify([], null, 2), "utf8");
+        return [];
+      }
 
-        throw error;
+      if (error instanceof SyntaxError) {
+        throw new Error("data.json contains invalid JSON.");
+      }
+
+      throw error;
     }
-}
+  },
 
-   
-    async writeItems(items) {
-    
-        await fs.writeFile(filePath, JSON.stringify(items, null, 2), 'utf8');
-    }
-}
 
-module.exports = fileService;
+
+
+
+  async writeItems(items: User[]): Promise<void> {
+
+    await fs.writeFile(
+        
+      filePath,
+      JSON.stringify(items, null, 2),
+      "utf8"
+    );
+  },
+};
+
+export default fileService;

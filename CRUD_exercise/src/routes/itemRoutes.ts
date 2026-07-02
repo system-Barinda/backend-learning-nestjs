@@ -34,4 +34,4 @@ router.delete(
   itemController.deleteItem
 );
 
-module.exports = router;
+export default router;
