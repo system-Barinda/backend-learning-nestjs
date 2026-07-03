@@ -1,7 +1,7 @@
-onst http = require('http');
+const http = require('http');
 const { URL } = require('url');
 
-// In-memory data store (for demonstration)
+
 let todos = [
   { id: 1, task: 'Learn Node.js', completed: false },
   { id: 2, task: 'Build an API', completed: false }
@@ -17,19 +17,19 @@ const server = http.createServer((req, res) => {
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
-  // Handle preflight requests
+ 
   if (method === 'OPTIONS') {
     res.writeHead(204);
     res.end();
     return;
   }
 
-  // Route: GET /todos
+
   if (method === 'GET' && pathname === '/todos') {
     res.writeHead(200, { 'Content-Type': 'application/json' });
     res.end(JSON.stringify(todos));
   }
-  // Route: POST /todos
+ 
   else if (method === 'POST' && pathname === '/todos') {
     let body = '';
     req.on('data', chunk => {
@@ -50,7 +50,7 @@ const server = http.createServer((req, res) => {
     });
   }
 
-  // Route: PUT /todos/:id
+
   else if (method === 'PUT' && pathname.startsWith('/todos/')) {
     const id = parseInt(pathname.split('/')[2]);
     let body = '';
@@ -79,7 +79,7 @@ const server = http.createServer((req, res) => {
     });
   }
 
-  // Route: DELETE /todos/:id
+  
   else if (method === 'DELETE' && pathname.startsWith('/todos/')) {
     const id = parseInt(pathname.split('/')[2]);
     const index = todos.findIndex(t => t.id === id);
