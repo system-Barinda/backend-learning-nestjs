@@ -7,7 +7,6 @@ const filePath = path.join(__dirname, "../../data.json");
 const fileService = {
 
 
-
   async readItems(): Promise<User[]> {
     try {
       const data = await fs.readFile(filePath, "utf8");
@@ -33,13 +32,10 @@ const fileService = {
   },
 
 
-
-
-
   async writeItems(items: User[]): Promise<void> {
 
     await fs.writeFile(
-        
+
       filePath,
       JSON.stringify(items, null, 2),
       "utf8"
