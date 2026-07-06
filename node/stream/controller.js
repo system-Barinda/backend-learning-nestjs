@@ -1,14 +1,12 @@
 import fileService from "./fileService.js";
 
 const controller = {
-  async getData(req, res) {
+  getData(req, res) {
     try {
-      const data = fileService.readFile();
+      const stream = fileService.readFile();
 
-      res.status(200).json({
-        message: "Data retrieved successfully",
-        data,
-      });
+      res.setHeader("Content-Type", "application/json");
+      stream.pipe(res);
     } catch (error) {
       res.status(500).json({
         message: "Error retrieving data",
