@@ -4,13 +4,13 @@ const app = express();
 
 app.use((req, res, next) => {
   console.log('Middleware 1: This always runs');
-  next();
+
 });
 
 
 app.use((req, res, next) => {
   console.log('Middleware 2: This also always runs');
-  next();
+
 });
 
 
