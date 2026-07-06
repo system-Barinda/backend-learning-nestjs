@@ -15,4 +15,10 @@ export const typeDefs = `#graphql
   id:ID!
   name:string!
   verified:boolean!}
+
+  type Query {
+  reviews:[Review]
+  games:[Game]
+  authors:[Author]
+  }
 ` 
