@@ -1,22 +1,22 @@
-const fs = require('fs');
-const path = require('path');
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-const filePath = path.join(__dirname,'data.json');
+const filePath = path.join(__dirname, "data.json");
 
 const fileService = {
-    
-    // let create the function to read the file
-
-    async readFile(){
-        try{
-            const data = await fs.createReadStream(filePath,{encoding:true})
-            return data;
-        }catch(err){
-            console.error('Error reading file:',err);
-        }
+  readFile() {
+    try {
+      return fs.createReadStream(filePath, {
+        encoding: "utf8",
+      });
+    } catch (err) {
+      console.error("Error reading file:", err);
     }
+  },
+};
 
-}
-
-export default  fileService;
+export default fileService;

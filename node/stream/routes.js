@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-import controller from "./controller";
+import controller from "./controller.js";
 
 
 router.get('/data',controller.getData);
