@@ -1,7 +1,5 @@
-const { ApolloServer } = require("@apollo/server");
-const { Query } = require("@nestjs/common");
-const { listen } = require("node:quic");
-const { start } = require("node:repl");
+import { ApolloServer } from "@apollo/server";
+import { startStandaloneServer } from "@apollo/server/standalone";
 
 const books = [
   {
@@ -19,6 +17,12 @@ const resolvers = {
         books: () => books,
     }
 }
+
+const typeDefs = `#graphql
+  type Query {
+    hello: String
+  }
+`;
 
 const server = new ApolloServer({
     typeDefs,
