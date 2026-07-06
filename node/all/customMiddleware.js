@@ -1,5 +1,5 @@
 const express = require('express');
-const { convertTypeAcquisitionFromJson } = require('typescript');
+
 const app = express();
 
 
@@ -10,9 +10,12 @@ function logger(req,res,next){
 
 app.use(logger);
 
+
 app.get('/done',(req,res) => {
  res.send("welecome to done page my name is barinda system sylvere");
 });
+
+
 app.get('/done/:id',(req,res) => {
     res.send(`welecome to done page my name is barinda system sylvere and the id is ${req.params.id}`);
    });
