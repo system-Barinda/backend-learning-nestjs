@@ -47,6 +47,18 @@ const server = http.createServer((req, res) => {
 
     }
 
+    else if (req.method === "GET" && req.url === "/delete"){
+        fs.unlink("output.txt",(err) => {
+            if(err){
+                res.writeHead(500, {"Content-Type":"text/plain"})
+                res.end("error deleting file: " + err.message)
+            } else {
+                res.writeHead(200, {"Content-Type":"text/plain"})
+                res.end("file deleted successfully")
+            }
+        });
+    }
+
 
     else {
 
