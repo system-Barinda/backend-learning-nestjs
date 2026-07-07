@@ -6,7 +6,7 @@ const server = http.createServer((req, res) => {
 
     if (req.method === "GET" && req.url === "/") {
 
-        fs.readFile("input.txt", "utf8", (err, data) => {
+        fs.readFile("barinda.txt", "utf8", (err, data) => {
 
             if (err) {
                 res.writeHead(500, { "Content-Type": "text/plain" });
@@ -31,7 +31,7 @@ const server = http.createServer((req, res) => {
 
         req.on("end", () => {
 
-            fs.writeFile("output.txt", body, (err) => {
+            fs.writeFile("barinda.txt", body, (err) => {
 
                 if (err) {
                     res.writeHead(500, { "Content-Type": "text/plain" });
@@ -47,16 +47,27 @@ const server = http.createServer((req, res) => {
 
     }
 
-    else if (req.method === "GET" && req.url === "/delete"){
-        fs.unlink("output.txt",(err) => {
+    // else if (req.method === "GET" && req.url === "/delete"){
+    //     fs.unlink("output.txt",(err) => {
+    //         if(err){
+    //             res.writeHead(500, {"Content-Type":"text/plain"})
+    //             res.end("error deleting file: " + err.message)
+    //         } else {
+    //             res.writeHead(200, {"Content-Type":"text/plain"})
+    //             res.end("file deleted successfully")
+    //         }
+    //     });
+    // }
+
+    else if (req.method === "DELETE" && req.url === "/delete"){
+        fs.writeFile("barinda.text","", (err) => {
             if(err){
                 res.writeHead(500, {"Content-Type":"text/plain"})
-                res.end("error deleting file: " + err.message)
-            } else {
-                res.writeHead(200, {"Content-Type":"text/plain"})
-                res.end("file deleted successfully")
+                res.end("error deleting data:" + err.message)
             }
-        });
+        
+            return res.end("data deleted successfully");
+        })
     }
 
 
