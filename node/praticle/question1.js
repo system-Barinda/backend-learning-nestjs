@@ -69,7 +69,39 @@ const server = http.createServer((req, res) => {
             return res.end("data deleted successfully");
         })
     }
+else if (req.method === "PUT" && req.url === "/update") {
 
+    let body = "";
+
+    req.on("data", (chunk) => {
+        body += chunk.toString();
+    });
+
+    req.on("end", () => {
+
+        fs.writeFile("output.txt", body, (err) => {
+
+            if (err) {
+
+                res.writeHead(500, {
+                    "Content-Type": "text/plain"
+                });
+
+                return res.end("Error updating file");
+
+            }
+
+            res.writeHead(200, {
+                "Content-Type": "text/plain"
+            });
+
+            res.end("File updated successfully");
+
+        });
+
+    });
+
+}
 
     else {
 
