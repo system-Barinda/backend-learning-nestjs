@@ -29,10 +29,33 @@ const proccessTask = {
             message: "Error reading task file"
         });
         }
+      },
+
+
+      // let write that we have
+      async writeTask(req,res){
+        try{
+
+             const { name, status } = req.body;
+             const task = await this.readTask();
+             const newTask = {
+                id:task[task.length -1].id + 1,
+                name,
+                status
+             };
+             task.push(newTask);
+             await fs.writeFile(filePath, JSON.stringify(task, null,2));
+             return res.json(newTask);
+
+        }
+        catch(err){
+            res.status(500).json({message:'Error writing task file'});
+        }
       }
 };
 
 router.get('/tasks',proccessTask.readTask);
+router.post('/create',proccessTask.writeTask);
 
 app.use('/api', router);
 
