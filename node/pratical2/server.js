@@ -67,28 +67,35 @@ const processTask = {
     },
 
     // Update an existing task
-  async updateTask(req,res) {
-    try{
-      const { id} = req.params;
-      const { name, status} = req.body;
+ async updateTask(req, res) {
+    try {
+        const { id } = req.params;
+        const { name, status } = req.body;
 
-      const data = await fs.readFile(filePath,'utf8');
-      const currentTask = data.find(task => task.id === parseInt(id));
+        const data = await fs.readFile(filePath, 'utf8');
+        const tasks = JSON.parse(data);
 
-      if(!currentTask){
-        return res.status(404).json({ message: "Task not found"});
-      }
-      const newUpdatedTask = JSON.parse(currentTask);
-      if(name) newUpdatedTask.name = name;
-      if(status) newUpdatedTask.status = status;
+        const currentTask = tasks.find(task => task.id === Number(id));
 
-      await fs.writeFile(filePath, JSON.stringify(newUpdatedTask,null,2));
-      return res.status(200).json(newUpdatedTask);
+        if (!currentTask) {
+            return res.status(404).json({
+                message: "Task not found"
+            });
+        }
+
+        if (name) currentTask.name = name;
+        if (status) currentTask.status = status;
+
+        await fs.writeFile(filePath, JSON.stringify(tasks, null, 2));
+
+        return res.status(200).json(currentTask);
+
+    } catch (err) {
+        return res.status(500).json({
+            message: "Error updating task file"
+        });
     }
-    catch(err){
-        res.status(500).json({message:"Error updating task file"});
-    }
-  }
+},
 
 
 
