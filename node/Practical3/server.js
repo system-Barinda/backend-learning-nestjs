@@ -32,6 +32,7 @@ app.get('/convert', (req, res) => {
         return res.status(400).json({
             message: "Currency must be one of: usd, eur, gbp."
         });
+
     }
 
     const convertedAmount = numericAmount * exchangeRates[currency];
@@ -44,6 +45,9 @@ app.get('/convert', (req, res) => {
         convertedAmount,
         unit: "RWF"
     });
+    if(err){
+        console.error("what happened:",err.message);
+    }
 });
 
 app.listen(PORT, () => {
