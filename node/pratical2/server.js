@@ -64,12 +64,40 @@ const processTask = {
                 message: 'Error writing task file'
             });
         }
+    },
+
+    // Update an existing task
+  async updateTask(req,res) {
+    try{
+      const { id} = req.params;
+      const { name, status} = req.body;
+
+      const data = await fs.readFile(filePath,'utf8');
+      const currentTask = data.find(task => task.id === parseInt(id));
+
+      if(!currentTask){
+        return res.status(404).json({ message: "Task not found"});
+      }
+      const newUpdatedTask = JSON.parse(currentTask);
+      if(name) newUpdatedTask.name = name;
+      if(status) newUpdatedTask.status = status;
+
+      await fs.writeFile(filePath, JSON.stringify(newUpdatedTask,null,2));
+      return res.status(200).json(newUpdatedTask);
     }
+    catch(err){
+        res.status(500).json({message:"Error updating task file"});
+    }
+  }
+
+
+
 
 };
 
 router.get('/tasks', processTask.readTask);
 router.post('/create', processTask.writeTask);
+router.put('/update/:id', processTask.updateTask);
 
 app.use('/api', router);
 
