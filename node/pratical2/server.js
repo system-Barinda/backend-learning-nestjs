@@ -13,16 +13,28 @@ const router = express.Router();
 app.use(cors());
 app.use(express.json());
 
-const PORT = process.env.PORT || 3000;
-
+const PORT =3000;
 const filePath = path.join(__dirname, 'task.json');
 
-
 const proccessTask = {
-
+         
+// let read that we have
+      async readTask(req,res){
+        try{
+            const task = await fs.readFile(filePath,'utf8');
+            return res.json(JSON.parse(task));
+        }
+        catch(err){
+           res.status(500).json({
+            message: "Error reading task file"
+        });
+        }
+      }
 };
 
-app.use(router);
+router.get('/tasks',proccessTask.readTask);
+
+app.use('/api', router);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
