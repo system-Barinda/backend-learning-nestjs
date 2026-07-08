@@ -97,6 +97,41 @@ const processTask = {
     }
 },
 
+ async deleteTask(req, res) {
+    try {
+        const { id } = req.params
+
+        const data = await fs.readFile(filePath, 'utf8');
+        const tasks = JSON.parse(data);
+
+        const currentTask = tasks.find(task => task.id === Number(id));
+
+        if (!currentTask) {
+            return res.status(404).json({
+                message: "Task not found"
+            });
+        }
+
+        const updatedTasks = tasks.filter(task => task.id !== Number(id));
+
+        await fs.writeFile(filePath, JSON.stringify(updatedTasks, null, 2));
+
+        return res.status(200).json({
+            message: "Task deleted successfully",
+            deletedTask: currentTask
+        });
+
+    } catch (err) {
+        return res.status(500).json({
+            message: "Error deleting task file"
+        });
+    }
+},
+
+
+
+
+
 
 
 
@@ -105,6 +140,7 @@ const processTask = {
 router.get('/tasks', processTask.readTask);
 router.post('/create', processTask.writeTask);
 router.put('/update/:id', processTask.updateTask);
+router.delete('/delete/:id',processTask.deleteTask);
 
 app.use('/api', router);
 
