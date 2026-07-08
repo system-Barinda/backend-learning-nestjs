@@ -3,6 +3,7 @@ const dotenv = require('dotenv');
 const fs = require('fs').promises;
 const cors = require('cors');
 const path = require('path');
+const { requestLogger } = require('./middleware/requestLogger');
 
 dotenv.config();
 
@@ -11,6 +12,7 @@ const router = express.Router();
 
 app.use(cors());
 app.use(express.json());
+app.use(requestLogger);
 
 const PORT = 3000;
 const filePath = path.join(__dirname, 'task.json');
