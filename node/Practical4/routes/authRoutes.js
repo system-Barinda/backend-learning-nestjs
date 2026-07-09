@@ -6,7 +6,13 @@ const {
     login,
 } = require("../controllers/authController");
 
-router.post("/signup", signup);
+
+const {
+    signupValidation,
+    validate
+} = require("../validators/authValidator");
+
+router.post("/signup",signupValidation,validate, signup);
 router.post("/login", login);
 
 module.exports = router;
