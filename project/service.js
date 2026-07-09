@@ -3,32 +3,30 @@ const path = require("path");
 
 const filePath = path.join(__dirname, "data.json");
 
-function readItems(callback) {
+function readItems() {
+    return new Promise((resolve, reject) => {
 
-    let data = "";
+        let data = "";
 
-    const stream = fs.createReadStream(filePath, "utf8");
+        const stream = fs.createReadStream(filePath, "utf8");
 
-    stream.on("data", (chunk) => {
-        data += chunk;
+        stream.on("data", chunk => data += chunk);
+
+        stream.on("end", () => {
+            try {
+                resolve(JSON.parse(data || "[]"));
+            } catch (err) {
+                reject(err);
+            }
+        });
+
+        stream.on("error", reject);
+
     });
-
-    stream.on("end", () => {
-        callback(JSON.parse(data));
-    });
-
-    stream.on("error", (err) => {
-        console.log(err);
-    });
-
 }
 
-
-function createItem(item) {
-
-    readItems((items) => {
-
-        items.push(item);
+function writeItems(items) {
+    return new Promise((resolve, reject) => {
 
         const stream = fs.createWriteStream(filePath);
 
@@ -36,6 +34,9 @@ function createItem(item) {
 
         stream.end();
 
-    });
+        stream.on("finish", resolve);
 
+        stream.on("error", reject);
+
+    });
 }
