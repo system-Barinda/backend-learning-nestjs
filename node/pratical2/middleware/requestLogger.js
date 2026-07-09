@@ -8,3 +8,8 @@ export const requestLogger =(req,res,next) => {
     });
     next()
 }
+
+
+export const barinda = async(req,res) => {
+    
+}
