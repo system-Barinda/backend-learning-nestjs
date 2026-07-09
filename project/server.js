@@ -1,25 +1,40 @@
-async function createItem(item) {
-    const items = await readItems();
-    items.push(item);
-    await writeItems(items);
-}
+const fs = require("fs");
+const { Transform } = require("stream");
 
-async function updateItem(id, updatedItem) {
-    const items = await readItems();
 
-    const index = items.findIndex(item => item.id === id);
+const readStream = fs.createReadStream("input.txt", {
+    encoding: "utf8",
+});
 
-    if (index === -1) {
-        throw new Error("Item not found");
-    }
 
-    items[index] = updatedItem;
+const writeStream = fs.createWriteStream("output.txt");
 
-    await writeItems(items);
-}
 
-async function deleteItem(id) {
-    const items = await readItems();
-    const filtered = items.filter(item => item.id !== id);
-    await writeItems(filtered);
-}
+const upperCaseTransform = new Transform({
+    transform(chunk, encoding, callback) {
+        callback(null, chunk.toString().toUpperCase());
+    },
+});
+
+
+readStream.on("error", (err) => {
+    console.error("Error reading file:", err.message);
+});
+
+
+writeStream.on("error", (err) => {
+    console.error("Error writing file:", err.message);
+});
+
+
+upperCaseTransform.on("error", (err) => {
+    console.error("Transform error:", err.message);
+});
+
+
+writeStream.on("finish", () => {
+    console.log("File has been successfully converted to uppercase.");
+});
+
+
+readStream.pipe(upperCaseTransform).pipe(writeStream);
