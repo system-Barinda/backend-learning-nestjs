@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions name="UserService"
+             targetNamespace="http://example.com/userservice"
+             xmlns="http://schemas.xmlsoap.org/wsdl/"
+             xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+             xmlns:tns="http://example.com/userservice"
+             xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+    <types>
+        <xsd:schema targetNamespace="http://example.com/userservice">
+            <!-- Data Model Structure -->
+            <xsd:complexType name="User">
+                <xsd:sequence>
+                    <xsd:element name="id" type="xsd:string"/>
+                    <xsd:element name="name" type="xsd:string"/>
+                    <xsd:element name="email" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+
+            <!-- Request / Response Elements -->
+            <xsd:element name="CreateUserRequest">
+                <xsd:complexType><xsd:sequence><xsd:element name="name" type="xsd:string"/><xsd:element name="email" type="xsd:string"/></xsd:sequence></xsd:complexType>
+            </xsd:element>
+            <xsd:element name="CreateUserResponse">
+                <xsd:complexType><xsd:sequence><xsd:element name="user" type="tns:User"/></xsd:sequence></xsd:complexType>
+            </xsd:element>
+
+            <xsd:element name="ReadUserRequest">
+                <xsd:complexType><xsd:sequence><xsd:element name="id" type="xsd:string"/></xsd:sequence></xsd:complexType>
+            </xsd:element>
+            <xsd:element name="ReadUserResponse">
+                <xsd:complexType><xsd:sequence><xsd:element name="user" type="tns:User"/></xsd:sequence></xsd:complexType>
+            </xsd:element>
+
+            <xsd:element name="UpdateUserRequest">
+                <xsd:complexType><xsd:sequence><xsd:element name="id" type="xsd:string"/><xsd:element name="name" type="xsd:string"/><xsd:element name="email" type="xsd:string"/></xsd:sequence></xsd:complexType>
+            </xsd:element>
+            <xsd:element name="UpdateUserResponse">
+                <xsd:complexType><xsd:sequence><xsd:element name="success" type="xsd:boolean"/></xsd:sequence></xsd:complexType>
+            </xsd:element>
+
+            <xsd:element name="DeleteUserRequest">
+                <xsd:complexType><xsd:sequence><xsd:element name="id" type="xsd:string"/></xsd:sequence></xsd:complexType>
+            </xsd:element>
+            <xsd:element name="DeleteUserResponse">
+                <xsd:complexType><xsd:sequence><xsd:element name="success" type="xsd:boolean"/></xsd:sequence></xsd:complexType>
+            </xsd:element>
+        </xsd:schema>
+    </types>
+
+    <!-- Messages linking to the schema -->
+    <message name="CreateUserRequestMsg"><part name="params" element="tns:CreateUserRequest"/></message>
+    <message name="CreateUserResponseMsg"><part name="params" element="tns:CreateUserResponse"/></message>
+    <message name="ReadUserRequestMsg"><part name="params" element="tns:ReadUserRequest"/></message>
+    <message name="ReadUserResponseMsg"><part name="params" element="tns:ReadUserResponse"/></message>
+    <message name="UpdateUserRequestMsg"><part name="params" element="tns:UpdateUserRequest"/></message>
+    <message name="UpdateUserResponseMsg"><part name="params" element="tns:UpdateUserResponse"/></message>
+    <message name="DeleteUserRequestMsg"><part name="params" element="tns:DeleteUserRequest"/></message>
+    <message name="DeleteUserResponseMsg"><part name="params" element="tns:DeleteUserResponse"/></message>
+
+    <!-- Port Operations Mapping -->
+    <portType name="UserPortType">
+        <operation name="CreateUser"><input message="tns:CreateUserRequestMsg"/><output message="tns:CreateUserResponseMsg"/></operation>
+        <operation name="ReadUser"><input message="tns:ReadUserRequestMsg"/><output message="tns:ReadUserResponseMsg"/></operation>
+        <operation name="UpdateUser"><input message="tns:UpdateUserRequestMsg"/><output message="tns:UpdateUserResponseMsg"/></operation>
+        <operation name="DeleteUser"><input message="tns:DeleteUserRequestMsg"/><output message="tns:DeleteUserResponseMsg"/></operation>
+    </portType>
+
+    <!-- Binding Configuration -->
+    <binding name="UserBinding" type="tns:UserPortType">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <operation name="CreateUser"><soap:operation soapAction="CreateUser"/><input><soap:body use="literal"/></input><output><soap:body use="literal"/></output></operation>
+        <operation name="ReadUser"><soap:operation soapAction="ReadUser"/><input><soap:body use="literal"/></input><output><soap:body use="literal"/></output></operation>
+        <operation name="UpdateUser"><soap:operation soapAction="UpdateUser"/><input><soap:body use="literal"/></input><output><soap:body use="literal"/></output></operation>
+        <operation name="DeleteUser"><soap:operation soapAction="DeleteUser"/><input><soap:body use="literal"/></input><output><soap:body use="literal"/></output></operation>
+    </binding>
+
+    <!-- Exposing the Endpoint -->
+    <service name="UserService">
+        <port name="UserPort" binding="tns:UserBinding">
+            <soap:address location="http://localhost:8000/wsdl"/>
+        </port>
+    </service>
+</definitions>
