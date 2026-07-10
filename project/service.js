@@ -13,6 +13,7 @@ function readItems() {
         stream.on("data", chunk => data += chunk);
 
         stream.on("end", () => {
+        
             try {
                 resolve(JSON.parse(data || "[]"));
             } catch (err) {
@@ -40,3 +41,9 @@ function writeItems(items) {
 
     });
 }
+
+function updateStream(stream){
+
+}
+
+
